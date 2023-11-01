@@ -1,0 +1,27 @@
+{
+  "name": "541211165-xiirpl5-sheren",
+  "version": "1.0.0",
+  "description": "Praktikum Express JS Basic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sauravii/541211165-XIIRPL5-Sheren.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sauravii/541211165-XIIRPL5-Sheren/issues"
+  },
+  "homepage": "https://github.com/sauravii/541211165-XIIRPL5-Sheren#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
