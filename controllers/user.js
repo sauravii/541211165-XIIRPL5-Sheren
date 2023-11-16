@@ -1,21 +1,25 @@
 const user = require("../models/user");
 
 module.exports = {
-  index: (req, res) => {
+  index: async (req, res) => {
     // show output
-    if (users.length > 0) {
-      res.json({
-        status: true,
-        data: users,
-        method: req.method,
-        url: req.url,
-      });
-    } else {
-      res.json({
-        status: false,
-        data: [],
-        message: "Data kosong",
-      });
+    try {
+      const users = await user.find();
+      if (users.length > 0) {
+        res.status(200).json({
+          status: true,
+          data: users,
+          method: req.method,
+          url: req.url,
+        });
+      } else {
+        res.json({
+          status: false,
+          message: "Data kosong",
+        });
+      }
+    } catch (error) {
+      res.status(400).json({ success: false });
     }
   },
   store: (req, res) => {
