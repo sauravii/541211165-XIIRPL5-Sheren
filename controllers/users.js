@@ -1,8 +1,7 @@
-const user = require("../models/user");
+const user = require("../models/users");
 
 module.exports = {
   index: async (req, res) => {
-    // show output
     try {
       const users = await user.find();
       if (users.length > 0) {
@@ -22,18 +21,18 @@ module.exports = {
       res.status(400).json({ success: false });
     }
   },
-  store: (req, res) => {
-    users.push(req.body);
-
-    // show output
-    if (users.length > 0) {
-      res.json({
+  store: async (req, res) => {
+    try {
+      const users = await user.create(req.body);
+      res.status(201).json({
         status: true,
         data: users,
         method: req.method,
         url: req.url,
         message: "Data berhasil ditambahkan",
       });
+    } catch (error) {
+      res.status(400).json({ success: false });
     }
   },
   update: (req, res) => {
