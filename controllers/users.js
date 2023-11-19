@@ -35,27 +35,22 @@ module.exports = {
       res.status(400).json({ success: false });
     }
   },
-  update: (req, res) => {
-    // define variable id
-    const id = req.params.id;
-    // filter
-    users.filter((user) => {
-      if (user.id == id) {
-        user.name = req.body.name;
-        user.email = req.body.email;
-        return user;
-      }
-    });
+  update: async (req, res) => {
+    try {
+      const users = await user.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
 
-    // show output
-    if (users.length > 0) {
-      res.json({
+      res.status(200).json({
         status: true,
         data: users,
         method: req.method,
         url: req.url,
         message: "Data berhasil diubah",
       });
+    } catch (error) {
+      res.status(400).json({ success: false });
     }
   },
   delete: (req, res) => {
