@@ -1,6 +1,7 @@
 const user = require("../models/users");
 
 module.exports = {
+  // get all users
   index: async (req, res) => {
     try {
       const users = await user.find();
@@ -21,6 +22,23 @@ module.exports = {
       res.status(400).json({ success: false });
     }
   },
+  // get user by id
+  show: async (req, res) => {
+    try {
+      const users = await user.findById(req.params.id);
+
+      res.status(200).json({
+        status: true,
+        data: users,
+        method: req.method,
+        url: req.url,
+        message: "Data berhasil didapatkan",
+      });
+    } catch (err) {
+      res.status(400).json({ success: false, error: err });
+    }
+  },
+  // post
   store: async (req, res) => {
     try {
       const users = await user.create(req.body);
@@ -35,6 +53,7 @@ module.exports = {
       res.status(400).json({ success: false });
     }
   },
+  // put
   update: async (req, res) => {
     try {
       const users = await user.findByIdAndUpdate(req.params.id, req.body, {
@@ -53,6 +72,7 @@ module.exports = {
       res.status(400).json({ success: false });
     }
   },
+  // delete
   delete: async (req, res) => {
     try {
       await user.findByIdAndDelete(req.params.id);
@@ -60,7 +80,7 @@ module.exports = {
         status: true,
         method: req.method,
         url: req.url,
-        message: "Delete data success",
+        message: "Data berhasil dihapus",
       });
     } catch (err) {
       res.status(400).json({ sucess: false, error: err });
