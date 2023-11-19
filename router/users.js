@@ -1,10 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const userController = require("../controllers/user");
+const userController = require("../controllers/users");
 
 // get all users data
 router.get("/users", userController.index);
+
+// get users by id
+router.get("/user/:id", userController.show);
 
 // post users
 router.post("/user", userController.store);
