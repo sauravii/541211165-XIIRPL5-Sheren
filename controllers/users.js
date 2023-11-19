@@ -53,21 +53,17 @@ module.exports = {
       res.status(400).json({ success: false });
     }
   },
-  delete: (req, res) => {
-    // define variable id
-    const id = req.params.id;
-    // filter
-    users = users.filter((user) => user.id != id);
-
-    // show output
-    if (users.length > 0) {
+  delete: async (req, res) => {
+    try {
+      await user.findByIdAndDelete(req.params.id);
       res.json({
         status: true,
-        data: users,
         method: req.method,
         url: req.url,
-        message: `Data dengan id ${id} berhasil dihapus`,
+        message: "Delete data success",
       });
+    } catch (err) {
+      res.status(400).json({ sucess: false, error: err });
     }
   },
 };
